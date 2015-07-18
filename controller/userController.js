@@ -2,14 +2,14 @@ function UserController() {
     var User = require('../model/user');
     this.createUser = function (req, res, next) {
         var newUser = new User(req.params);
-        newUser.password = require('crypto').createHash('md5').digest('hex');
+        newUser.password = require('crypto').createHash('md5').update(req.params.password).digest('hex');
         newUser.save(function (err, data) {
             res.send({'result': data, 'ret': 1})
             return next();
         });
     };
     this.getUsers = function (req, res, next) {
-        User.find({}, {'_id': 0, '__v': 0}, function (err, data) {
+        User.find({}, {'__v': 0}, function (err, data) {
             res.send({'result': data, 'ret': 1});
             return next();
         });
@@ -19,11 +19,9 @@ function UserController() {
     this.changePwd = function (req, res, next) {
         var oldPwd = req.params['oldPwd'];
         var newPwd = req.params['newPwd'];
-        var oldPwdHash = require('crypto').createHash('md5').digest('oldPwd');
+        var oldPwdHash = require('crypto').createHash('md5').update(oldPwd).digest('hex');
         User.findOne({'mobile': req.params.mobile}, function (err, data) {
             var i18n = require('../i18n/localeMessage');
-            if (!data) res.send({'result': i18n.get('user.not.exists'), 'ret': 0});
-
             if (data['password'] !== oldPwdHash) {
                 res.send({'result': i18n.get('user.old.password.error'), 'ret': 0});
                 return next();
@@ -35,5 +33,7 @@ function UserController() {
             })
         })
     }
+
+
 }
 module.exports = new UserController();

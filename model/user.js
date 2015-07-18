@@ -5,7 +5,8 @@ var userSchema = new mongoose.Schema({
     email: String,
     mobile: String,
     registerDate: Date,
-    status: Boolean
+    status: Boolean,
+    admin: boolean
 });
 var User = mongoose.model('user', userSchema);
 module.exports = User;

@@ -1,5 +1,14 @@
 {
   "name": "tyreApp",
   "version": "0.0.1",
-  "author": "Johnson"
+  "author": "Johnson",
+  "main": "server.js",
+  "dependencies": {
+    "restify": "4.x",
+    "mongoose": "3.8.8",
+    "jsonwebtoken": "5.0.4"
+  },
+  "engines": {
+    "node": ">=0.10.0"
+  }
 }

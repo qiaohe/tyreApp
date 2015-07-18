@@ -9,6 +9,7 @@ module.exports = {
         port: 8080
     },
     app: {
-        locale: 'zh_CN'
+        locale: 'zh_CN',
+        tokenSecret: 'ilovescotchyscotch'
     }
 };
