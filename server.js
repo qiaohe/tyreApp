@@ -8,8 +8,8 @@ var config = require('./config');
 var userController = require('./controller/userController');
 
 server.post('/register', userController.createUser);
-server.post('/login', userController.createUser);
-server.post('/logout', userController.createUser);
+server.post('/login', userController.login);
+server.post('/logout', userController.logout);
 
 server.get('/users', userController.getUsers);
 server.post('/users/:mobile/changePwd', userController.changePwd);

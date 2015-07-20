@@ -34,6 +34,25 @@ function UserController() {
         })
     }
 
+    this.login = function (req, res, next) {
+        var userName = req.params.username;
+        var password = require('crypto').createHash('md5').update(req.params.password).digest('hex');
+        User.findOne({'mobile': req.params.username, password: req.params.password}, function (err, data) {
+            var token = require("jsonwebtoken").sign(data, config.app.tokenSecret);
+            User.update({'mobile': req.params.mobile}, {'token': token}, function (err, data) {
+                res.send({'result': {uid: data_id, token: token}, 'ret': 1});
+                return next();
+            });
+        });
+    };
+    this.logout = function (req, res, next) {
+        var token = req.req.headers["authorization"].split(" ")[1];
+        User.update({'token': token}, {'token': token}, function (err, data) {
+            var i18n = require('../i18n/localeMessage');
+            res.send({'result': i18n.get('user.logout.success'), 'ret': 1});
+            return next();
+        });
+    }
 
 }
 module.exports = new UserController();

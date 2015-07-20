@@ -1,4 +1,4 @@
-var mongoose = require('../db').mongoose;
+var mongoose = require('../core/db').mongoose;
 var userSchema = new mongoose.Schema({
     userName: String,
     password: String,
@@ -6,7 +6,8 @@ var userSchema = new mongoose.Schema({
     mobile: String,
     registerDate: Date,
     status: Boolean,
-    admin: boolean
+    admin: boolean,
+    token: String
 });
 var User = mongoose.model('user', userSchema);
 module.exports = User;
