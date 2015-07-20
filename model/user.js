@@ -1,12 +1,12 @@
 var mongoose = require('../core/db').mongoose;
 var userSchema = new mongoose.Schema({
-    userName: String,
+    username: String,
     password: String,
     email: String,
     mobile: String,
     registerDate: Date,
     status: Boolean,
-    admin: boolean,
+    admin: Boolean,
     token: String
 });
 var User = mongoose.model('user', userSchema);
